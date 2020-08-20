@@ -21,7 +21,7 @@ router.put("/employees/:id", async (req, res) => {
   const _id = { id: req.params.id };
   console.log(_id);
   try {
-    const employee = await Employee.updateOne(_id, { $set: { ...req.body } });
+    const employee = await Employee.findOneAndUpdate(_id, { ...req.body });
 
     res.send({ employee });
   } catch (error) {

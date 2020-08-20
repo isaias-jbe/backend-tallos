@@ -1,4 +1,4 @@
-const mongoose = require("../dabase");
+const mongoose = require("../../dabase");
 const bcrypt = require("bcryptjs");
 
 const EmployeeSchema = new mongoose.Schema({
@@ -28,6 +28,14 @@ const EmployeeSchema = new mongoose.Schema({
   password: {
     type: String,
     require: true,
+    select: false
+  },
+  passwordResetToken: {
+    type: String,
+    select: false
+  },
+  passwordResetExpires: {
+    type: Date,
     select: false
   },
   createdAt: {
