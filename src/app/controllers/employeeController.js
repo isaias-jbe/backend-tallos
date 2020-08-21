@@ -18,14 +18,25 @@ router.get("/employees", async (req, res) => {
 router.use(isAdminMiddleware);
 
 router.put("/employees/:id", async (req, res) => {
-  const _id = { id: req.params.id };
-  console.log(_id);
-  try {
-    const employee = await Employee.findOneAndUpdate(_id, { ...req.body });
+  const id = req.params.id;
 
-    res.send({ employee });
+  try {
+    await Employee.findByIdAndUpdate(id, req.body);
+
+    res.send({ message: "Dados do funcionário atualizado com sucesso!" });
   } catch (error) {
     return res.status(400).send({ error: "Falha ao atualizar o funcionário!" });
+  }
+});
+
+router.delete("/employees/:id", async (req, res) => {
+  const id = req.params.id;
+  try {
+    await Employee.findByIdAndDelete(id);
+
+    res.send({ message: "Funcionário excluído com sucesso!" });
+  } catch (error) {
+    return res.status(400).send({ error: "Falha ao excluir o funcionário!" });
   }
 });
 

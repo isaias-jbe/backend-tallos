@@ -51,6 +51,13 @@ EmployeeSchema.pre("save", async function(next) {
   next();
 });
 
+EmployeeSchema.pre("update", async function(next) {
+  const hash = await bcrypt.hash(this.password, 10);
+  this.password = hash;
+
+  next();
+});
+
 const Employee = mongoose.model("Employee", EmployeeSchema);
 
 module.exports = Employee;
